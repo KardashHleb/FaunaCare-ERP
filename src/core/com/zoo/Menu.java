@@ -1,15 +1,45 @@
+/**
+ * Анализ с точки зрения SOLID:
+ *
+ * 1. SRP (Single Responsibility) - ЧАСТИЧНО СОБЛЮДЕН:
+ *    - Класс отвечает за демонстрацию предметной области,
+ *    в рамках которой необходимо манипулировать также форматирование вывода,
+ *    бизнес-логику создания отчетов, что является компромисом для упрощения структуры
+ *
+ * 2. OCP (Open/Closed) - ЧАСТИЧНО СОБЛЮДЕН:
+ *    - Закрыт для модификаций демонстрационной логики
+ *    - НО: Не открыт для расширения типов отчетов
+ *    - Для добавления нового отчета нужно менять код
+ *
+ * 3. LSP (Liskov Substitution) - СОБЛЮДЕН:
+ *    - Использует ZooReportGenerator который реализует ReportGenerator
+ *    - Может работать с любым наследником ReportGenerator
+ *    - Все отчеты корректно обрабатываются как строки
+ *
+ * 4. ISP (Interface Segregation) - НЕ ПРИМЕНИМО:
+ *    - Класс не реализует интерфейсы
+ *    - Имеет только один публичный метод
+ *    - Фактически имеет минимальный публичный интерфейс
+ *
+ * 5. DIP (Dependency Inversion) - НАРУШЕН:
+ *    - Прямое создание экземпляра ZooReportGenerator
+ *    - Зависит от конкретной реализации, а не от абстракции
+ *    - Нет внедрения зависимостей через параметры
+ */
+
 package core.com.zoo;
 
+import core.customData.Menu.CustomDataManager;
 import core.entities.Animal;
 import core.example.DataInitializer;
 import core.interfaces.ScheduleService;
-
+import static core.com.zoo.ReportDemonstrator.demonstrateReports;
 import java.util.Scanner;
 
 import static core.com.zoo.AnimalShelterDemonstrator.demonstrateAnimalCare;
 import static core.com.zoo.ExhibitionDemonstrator.demonstrateExhibitions;
 import static core.com.zoo.FeedingServiceDemonstrator.demonstrateFeedingService;
-import static core.com.zoo.ZooReportGenerator.demonstrateReports;
+
 
 
 public class Menu {
@@ -20,6 +50,7 @@ public class Menu {
     private MedicalCheckupDemonstrator medicalDemonstrator;
     private ScheduleService<Animal> animalScheduleService = new AnimalScheduleService();
     private ScheduleMenuManager scheduleMenuManager;
+    private CustomDataManager customDataManager;
 
     private static boolean askForDetailsOnStart() {
 
@@ -35,6 +66,7 @@ public class Menu {
         this.showDetails = askForDetailsOnStart();
         this.medicalDemonstrator = new MedicalCheckupDemonstrator();
         this.scheduleMenuManager = new ScheduleMenuManager(scanner, animalScheduleService);
+        this.customDataManager = new CustomDataManager(scanner);
 
     }
 
@@ -74,12 +106,20 @@ public class Menu {
                     SOLIDPrinciples.demonstrateAll(Database.getAnimals());
                     break;
                 case 7:
-                    changeSettings();
+                    // Загружаем текущие данные перед показом меню
+                    if (!Database.isUsingCustomData()) {
+                        dataInitializer.initializeData(showDetails);
+                    }
+                    customDataManager.showCustomDataMenu();
                     break;
                 case 8:
                     dataInitializer.initializeData(showDetails);
                     scheduleMenuManager.demonstrateScheduleManagement();
                     break;
+                case 9:
+                    changeSettings();
+                    break;
+
                 case 0:
                     exit = true;
                     System.out.println("\n=== Выход из системы ===");
@@ -108,8 +148,9 @@ public class Menu {
         System.out.println("4. Кормление животных");
         System.out.println("5. Отчеты и статистика");
         System.out.println("6. Демонстрация SOLID принципов");
-        System.out.println("7. Переинициализировать данные");
-        System.out.println("8. Показать расписание");
+        System.out.println("7. Управление данными (создание/удаление)");
+        System.out.println("8. Показать и настроить расписание");
+        System.out.println("9. Переинициализировать данные");
         System.out.println("0. Выход");
         System.out.println("=".repeat(50));
         System.out.print("Выберите пункт меню: ");

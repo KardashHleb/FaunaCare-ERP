@@ -1,3 +1,34 @@
+/**
+ * Анализ с точки зрения SOLID:
+ *
+ * 1. SRP (Single Responsibility) -  СОБЛЮДЕН
+ *    - Класс отвечает за представление птицы как животного
+ *
+ * 2. OCP (Open/Closed) -  СОБЛЮДЕН
+ *    - Закрыт для модификаций базовой структуры Bird
+ *    - Открыт для расширения через наследование (extends Animal)
+ *    - Реализует интерфейсы, позволяющие расширять функциональность
+ *
+ * 3. LSP (Liskov Substitution) -  СОБЛЮДЕН
+ *    - Корректно расширяет Animal
+ *    - Корректно реализует все интерфейсы (Feedable, HealthCheckable, ExhibitionParticipant)
+ *    - Может использоваться везде, где ожидается любой из этих типов
+ *
+ * 4. ISP (Interface Segregation) -  СОБЛЮДЕН
+ *    - Реализует только необходимые интерфейсы
+ *    - Каждый интерфейс имеет четкую ответственность
+ *    - Не реализует лишних методов
+ *
+ * 5. DIP (Dependency Inversion) -  СОБЛЮДЕН
+ *    - Зависит от абстракций (интерфейсов)
+ *    - Не зависит от конкретных реализаций
+ *    - Использует интерфейсы для декомпозиции функциональности
+ */
+
+
+
+
+
 package core.entities;
 
 import core.enums.AnimalType;
@@ -9,13 +40,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Класс, представляющий птицу в зоопарке.
- * Реализует интерфейсы Feedable, HealthCheckable и ExhibitionParticipant.
- * Следует принципам:
- * - LSP (Liskov Substitution) - может использоваться везде, где ожидается Animal
- * - ISP (Interface Segregation) - реализует только нужные интерфейсы
- */
 public class Bird extends Animal implements Feedable, HealthCheckable, ExhibitionParticipant {
 
     // Поля для Feedable
