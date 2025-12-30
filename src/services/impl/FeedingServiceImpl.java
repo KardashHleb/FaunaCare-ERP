@@ -1,16 +1,54 @@
+/**
+ * Анализ с точки зрения SOLID:
+ *
+ * 1. SRP (Single Responsibility) - ✅ СОБЛЮДЕН
+ *    - Класс имеет единственную ответственность: сервис кормления животных
+ *    - Не смешивает другие аспекты (учет корма, валидацию, логирование и т.д.)
+ *
+ * 2. OCP (Open/Closed) - ✅ СОБЛЮДЕН
+ *    - Класс закрыт для модификаций (не требует изменений при добавлении новых животных)
+ *    - Открыт для расширения через интерфейс Feedable
+ *    - Новые типы животных могут быть накормлены без изменения этого класса
+ *
+ * 3. LSP (Liskov Substitution) - ✅ СОБЛЮДЕН
+ *    - Метод принимает абстракцию Feedable, а не конкретную реализацию
+ *    - Любой наследник Feedable может быть передан в метод
+ *    - Отсутствуют проверки instanceof, которые нарушают принцип подстановки
+ *
+ * 4. ISP (Interface Segregation) - ✅ СОБЛЮДЕН
+ *    - Класс зависит только от интерфейса Feedable, который содержит только метод feed()
+ *    - Нет зависимости от "толстых" интерфейсов или ненужных методов
+ *    - Каждый интерфейс имеет минимальную и конкретную ответственность
+ *
+ * 5. DIP (Dependency Inversion) - ✅ СОБЛЮДЕН
+ *    - Класс зависит от абстракции Feedable, а не от конкретных классов
+ *    - Высокоуровневый модуль (сервис кормления) не зависит от низкоуровневых модулей (конкретных животных)
+ *    - Детали (конкретные животные) зависят от абстракции (интерфейс Feedable)
+ */
+
 package services.impl;
 
 import core.interfaces.Feedable;
 
 public class FeedingServiceImpl {
-    // Простая реализация для демонстрации
-    public void feedAnimal(Object animal, String food, int amount) {
-        System.out.println("Сервис кормления: животное накормлено");
-        if (animal instanceof Feedable) {
-            Feedable feedable = (Feedable) animal;
-            feedable.feed(food, amount);
-            System.out.println(animal + " покормлен " + food +
-                    " в количестве " + amount + "кг");
+
+    /**
+     * Метод для кормления животного, реализующего интерфейс Feedable
+     * @param animal животное для кормления (должно реализовывать Feedable)
+     * @param food тип корма
+     * @param amount количество корма в кг
+     */
+    public void feedAnimal(Feedable animal, String food, double amount) {
+        // Валидация входных параметров
+        if (animal == null) {
+            throw new IllegalArgumentException("Animal cannot be null");
         }
+
+        System.out.println("Сервис кормления: животное накормлено");
+
+        // Делегирование основной логики кормления объекту животного
+        animal.feed(food, amount);
+
+        System.out.println("Покормлено: " + food + " (" + amount + "кг)");
     }
 }

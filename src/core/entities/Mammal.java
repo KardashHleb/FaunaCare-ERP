@@ -1,3 +1,28 @@
+/**
+ * Анализ с точки зрения SOLID:
+ *
+ * 1. SRP (Single Responsibility)  ✅ СОБЛЮДЕН
+ *    - Класс отвечает за представление млекопитающего как животного
+ *
+ * 2. OCP (Open/Closed) - ✅ СОБЛЮДЕН
+ *    - Закрыт для модификаций базовой структуры Mammal
+ *    - Открыт для расширения через наследование (extends Animal)
+ *
+ * 3. LSP (Liskov Substitution) - ✅ СОБЛЮДЕН
+ *    - Корректно расширяет Animal
+ *    - Корректно реализует интерфейсы Feedable и HealthCheckable
+ *    - Может использоваться везде, где ожидается Animal, Feedable или HealthCheckable
+ *
+ * 4. ISP (Interface Segregation) - ✅ СОБЛЮДЕН
+ *    - Реализует только необходимые интерфейсы (Feedable, HealthCheckable)
+ *    - Не реализует ненужный интерфейс ExhibitionParticipant
+ *    - Правильно разделяет обязанности между интерфейсами
+ *
+ * 5. DIP (Dependency Inversion) - ✅ СОБЛЮДЕН
+ *    - Зависит только от абстракций (интерфейсы, enum)
+ *    - Не зависит от конкретных реализаций других классов
+ *    - Использует интерфейсы для декомпозиции функциональности
+ */
 package core.entities;
 
 import core.enums.AnimalType;
@@ -8,13 +33,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Класс, представляющий млекопитающее в зоопарке.
- * Реализует интерфейсы Feedable и HealthCheckable, но НЕ ExhibitionParticipant.
- * Следует принципам:
- * - LSP (Liskov Substitution) - может использоваться везде, где ожидается Animal
- * - ISP (Interface Segregation) - реализует только нужные интерфейсы (без выставок)
- */
+
 public class Mammal extends Animal implements Feedable, HealthCheckable {
 
     // Поля для Feedable
