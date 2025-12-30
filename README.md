@@ -1,45 +1,48 @@
 # FaunaCare ERP
 Программа моделирует систему управления уходом за животными в зоопарке. Она автоматизирует и отслеживает два ключевых процесса для обеспечения их благополучия: своевременное кормление (по видам и расписанию) и проведение медицинских осмотров. Система также формирует отчёты для контроля над этими операциями.
 СВОДНАЯ ТАБЛИЦА СОБЛЮДЕНИЯ SOLID ПРИНЦИПОВ
-Класс/Интерфейс	             SRP OCP LSP ISP DIP
-FeedingServiceImpl	         ✅	 ✅	 ✅	 ✅	 ✅
-ScheduleService	             ✅	 ✅	 ✅	 ✅	 ✅
-ReportGenerator	             ✅	 ✅	 ✅	 ✅	 ✅
-HealthCheckable	             ✅	 ✅	 ✅	 ✅	 ✅
-Feedable	                 ✅	 ✅	 ✅	 ✅	 ✅
-ExhibitionParticipant	     ✅	 ✅	 ✅  ✅ ✅
-MedicalHistoryService	     ✅	 ✅	 ✅	 ✅	 ✅
-EmployeeInitializer	         ✅	 ✅	 ✅	 ✅	 ✅
-DataInitializer	             ✅	 ✅	 ✅	 ✅	 ⚠️
-AnimalPrinter	             ✅	 ✅	 ✅	 ✅	 ✅
-AnimalInitializer	         ✅	 ✅	 ✅	 ✅	 ✅
-HealthStatus	             ⚠️	 ✅	 🔄	 🔄	 ✅
-EmployeeRole	             ⚠️	 ✅	 🔄	 🔄	 ✅
-AnimalType	                ⚠️	✅	🔄	🔄	✅
-Mammal	                    ✅	✅	✅	✅	✅
-Employee	                ✅	✅	✅	🔄	✅
-Bird	                    ✅	✅	✅	✅	✅
-Animal	                    ✅	✅	✅	✅	✅
-EmployeeService	            ✅	✅	⚠️	✅	⚠️
-EmployeeRemovalService	    ✅	✅	🔄	✅	⚠️
-EmployeeDisplayService	    ✅	✅	🔄	✅	⚠️
-DataModeService	            ✅	✅	🔄	✅	⚠️
-DataCleanupService	        ✅	✅	🔄	✅	⚠️
-AnimalService	            ✅	✅	⚠️	✅	⚠️
-AnimalRemovalService	    ✅	✅	🔄	✅	⚠️
-AnimalDisplayService	    ✅	✅	🔄	✅	⚠️
-EmployeeValidator	        ✅	✅	🔄	✅	✅
-EmployeeCreator	            ✅	✅	🔄	✅	⚠️
-EmployeeCreationException	✅	✅	✅	🔄	✅
-CustomDataManager	        ✅	✅	🔄	🔄	⚠️
-AnimalValidator	            ✅	✅	🔄	✅	✅
-AnimalCreator	            ✅	⚠️	⚠️	✅	⚠️
-AnimalCreationException	    ✅	✅	✅	🔄	✅
-ZooReportGenerator	        ✅	⚠️	✅	✅	⚠️
-SOLIDPrinciples	            ✅	✅	✅	✅	✅
-ScheduleMenuManager	        ⚠️	✅	✅	✅	⚠️
-ReportDemonstrator	        ✅	⚠️	✅	✅	⚠️
-Menu	                    ⚠️	⚠️	✅	🔄	⚠️
+====================================================================
+| Класс/Интерфейс           | SRP | OCP | LSP | ISP | DIP |
+|---------------------------|-----|-----|-----|-----|-----|
+| FeedingServiceImpl        | ✅  | ✅  | ✅  | ✅  | ✅  |
+| ScheduleService           | ✅  | ✅  | ✅  | ✅  | ✅  |
+| ReportGenerator           | ✅  | ✅  | ✅  | ✅  | ✅  |
+| HealthCheckable           | ✅  | ✅  | ✅  | ✅  | ✅  |
+| Feedable                  | ✅  | ✅  | ✅  | ✅  | ✅  |
+| ExhibitionParticipant     | ✅  | ✅  | ✅  | ✅  | ✅  |
+| MedicalHistoryService     | ✅  | ✅  | ✅  | ✅  | ✅  |
+| EmployeeInitializer       | ✅  | ✅  | ✅  | ✅  | ✅  |
+| DataInitializer           | ✅  | ✅  | ✅  | ✅  | ⚠️  |
+| AnimalPrinter             | ✅  | ✅  | ✅  | ✅  | ✅  |
+| AnimalInitializer         | ✅  | ✅  | ✅  | ✅  | ✅  |
+| HealthStatus              | ⚠️  | ✅  | 🔄  | 🔄  | ✅  |
+| EmployeeRole              | ⚠️  | ✅  | 🔄  | 🔄  | ✅  |
+| AnimalType                | ⚠️  | ✅  | 🔄  | 🔄  | ✅  |
+| Mammal                    | ✅  | ✅  | ✅  | ✅  | ✅  |
+| Employee                  | ✅  | ✅  | ✅  | 🔄  | ✅  |
+| Bird                      | ✅  | ✅  | ✅  | ✅  | ✅  |
+| Animal                    | ✅  | ✅  | ✅  | ✅  | ✅  |
+| EmployeeService           | ✅  | ✅  | ⚠️  | ✅  | ⚠️  |
+| EmployeeRemovalService    | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| EmployeeDisplayService    | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| DataModeService           | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| DataCleanupService        | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| AnimalService             | ✅  | ✅  | ⚠️  | ✅  | ⚠️  |
+| AnimalRemovalService      | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| AnimalDisplayService      | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| EmployeeValidator         | ✅  | ✅  | 🔄  | ✅  | ✅  |
+| EmployeeCreator           | ✅  | ✅  | 🔄  | ✅  | ⚠️  |
+| EmployeeCreationException | ✅  | ✅  | ✅  | 🔄  | ✅  |
+| CustomDataManager         | ✅  | ✅  | 🔄  | 🔄  | ⚠️  |
+| AnimalValidator           | ✅  | ✅  | 🔄  | ✅  | ✅  |
+| AnimalCreator             | ✅  | ⚠️  | ⚠️  | ✅  | ⚠️  |
+| AnimalCreationException   | ✅  | ✅  | ✅  | 🔄  | ✅  |
+| ZooReportGenerator        | ✅  | ⚠️  | ✅  | ✅  | ⚠️  |
+| SOLIDPrinciples           | ✅  | ✅  | ✅  | ✅  | ✅  |
+| ScheduleMenuManager       | ⚠️  | ✅  | ✅  | ✅  | ⚠️  |
+| ReportDemonstrator        | ✅  | ⚠️  | ✅  | ✅  | ⚠️  |
+| Menu                      | ⚠️  | ⚠️  | ✅  | 🔄  | ⚠️  |
+====================================================================
 
 ЛЕГЕНДА:
 
